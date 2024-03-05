@@ -6,4 +6,5 @@
     </style>
 
     <style name="Theme.GoTravel" parent="Base.Theme.GoTravel"/>
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar"/>
 </resources>

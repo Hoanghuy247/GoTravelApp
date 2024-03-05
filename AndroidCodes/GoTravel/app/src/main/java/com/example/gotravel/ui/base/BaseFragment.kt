@@ -28,9 +28,12 @@ abstract class BaseFragment<B : ViewDataBinding>(private val inflate: InflateFra
         _binding = inflate(inflater, container, false)
         mBinding?.lifecycleOwner = viewLifecycleOwner
         mDelegateFactory.init()
+        onBeforeCreateViewDone(savedInstanceState)
+        mDelegateFactory.onCreateView()
         return mBinding!!.root
     }
 
+    open fun onBeforeCreateViewDone(savedInstanceState : Bundle?) {}
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (!mViewModel.isViewCreated) {
@@ -54,4 +57,12 @@ abstract class BaseFragment<B : ViewDataBinding>(private val inflate: InflateFra
     }
 
     open fun onBindView() {}
+
+    fun activity(): BaseActivity<*> {
+        return requireActivity() as BaseActivity<*>
+    }
+
+    fun getDelegate(key: KeyDelegate): BaseDelegate<*, *>? {
+        return mDelegateFactory.getDelegate(key)
+    }
 }
